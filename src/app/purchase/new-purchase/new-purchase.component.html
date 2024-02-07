@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="card col-md-6 offset-3 mt-2">
+        <div class="card-header">Nouveau Bon de commande (Achat)</div>
+        <div class="card-body">
+            <form [formGroup]="addFormGroup" (ngSubmit)="handleSave()">
+                <div class="mb-3">
+                  <label for="product" class="form-label">Produit</label>
+                  <select id="product" class="form-select" formControlName="productPurchase">
+                    <option *ngFor="let product of products" [value]="product.id">{{ product.name }}</option>
+                  </select>
+                  <div *ngIf="addFormGroup.get('productPurchase')?.invalid && addFormGroup.get('productPurchase')?.touched"
+                        class="text-danger">
+                        Veuillez choisir un produit
+                    </div>
+                </div>
+                <div class="mb-3">
+                  <label for="quantity" class="form-label">Quantité</label>
+                  <input type="number" class="form-control" id="quantity" formControlName="quantity">
+                  <div *ngIf="addFormGroup.get('quantity')?.invalid && addFormGroup.get('quantity')?.touched"
+                        class="text-danger">
+                        Veuillez entrez une quantité valide
+                    </div>
+                </div>
+                <div class="mb-3">
+                  <label for="amount" class="form-label">Amount</label>
+                  <input id="amount" type="text" class="form-control" [value]="formatAmount(calculatedAmount)" disabled />
+                </div>
+                <button class="btn btn-primary me-md-2" [disabled]="!addFormGroup.valid">Enregistrer</button>
+                <button class="btn btn-secondary" routerLink="/purchases">Annuler</button>
+              </form>
+        </div>
+    </div>
+</div>

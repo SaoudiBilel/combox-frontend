@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="card col-md-6 offset-3 mt-2">
+        <div class="card-header">Nouveau Client</div>
+        <div class="card-body">
+            <form [formGroup]="addFormGroup" (ngSubmit)="handleSave()">
+                <div class="mb-3">
+                    <label class="form-label">Nom :</label>
+                    <input type="text" formControlName="name" class="form-control">
+                    <span class="text-danger" *ngIf="addFormGroup.controls['name'].touched 
+                                        && addFormGroup.controls['name'].errors 
+                                        && addFormGroup.controls['name'].errors!['required']">
+                        Veuillez ajoutez un nom
+                    </span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">N° téléphone :</label>
+                    <input type="text" formControlName="phoneNumber" class="form-control">
+                    <span class="text-danger" *ngIf="addFormGroup.controls['phoneNumber'].errors">
+                        Veuillez respectez le format numéro de téléphone
+                    </span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email :</label>
+                    <input type="text" formControlName="email" class="form-control">
+                    <span class="text-danger" *ngIf="addFormGroup.controls['email'].errors 
+                                        && addFormGroup.controls['email'].errors!['email']">
+                        Veuillez respectez le format email
+                    </span>
+                </div>
+                <button class="btn btn-primary me-md-2" [disabled]="!addFormGroup.valid">Enregistrer</button>
+                <button class="btn btn-secondary" routerLink="/customers">Annuler</button>
+            </form>
+        </div>
+    </div>
+</div>

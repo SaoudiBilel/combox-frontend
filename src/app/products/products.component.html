@@ -1,0 +1,34 @@
+<div class="container mt-2">
+    <ng-container *ngIf="products | async as listProducts; else failure">
+        <div class="card">
+            <div class="card-header">Produits</div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Catégorie</th>
+                            <th>unité</th>
+                            <th>prix unitaire</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let p of products | async">
+                            <td>{{p.id}}</td>
+                            <td>{{p.name}}</td>
+                            <td>{{p.category}}</td>
+                            <td>{{p.unit}}</td>
+                            <td>{{p.unitPrice}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #failure>
+        <div class="text-danger">
+            {{errorMessage}}
+        </div>
+    </ng-template>
+</div>

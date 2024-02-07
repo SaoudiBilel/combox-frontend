@@ -1,0 +1,62 @@
+<div class="container mt-2">
+    <ng-container *ngIf="invoices | async as listInvoices; else failureOrLoading">
+        <div class="card">
+            <div class="card-header">Factures d'Achat
+                <button class="btn btn-dark float-md-end" routerLink="/new-purchase-invoice">
+                    <i class="bi bi-plus-circle"></i>
+                </button>
+            </div>
+            <div class="card-body">
+                <div *ngIf="searchFormGroup">
+                <form [formGroup]="searchFormGroup" (ngSubmit)="handleSearch()">
+                    <div class="input-group">
+                        <label class="input-group-text">recherche</label>
+                        <input class="form-control" type="text" formControlName="keyword">
+                        <button class="btn btn-dark">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </form>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Reference</th>
+                            <th>Fournisseur</th>
+                            <th>Montant total</th>
+                            <th>Statut</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let c of invoices | async">
+                            <td>{{c.id}}</td>
+                            <td>{{c.reference}}</td>
+                            <td>{{c.provider?.name}}</td>
+                            <td>{{c.totalAmount}}</td>
+                            <td>{{c.status}}</td>
+                            <td>
+                                <button class="btn btn-primary" (click)="handleUpdate(c)">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger" (click)="handleDelete(c)">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #failureOrLoading>
+        <ng-container *ngIf="errorMessage; else loading">
+            <div class="text-danger">
+                {{errorMessage}}
+            </div>
+        </ng-container>
+    <ng-template #loading>Loading...</ng-template>
+    </ng-template>
+</div>

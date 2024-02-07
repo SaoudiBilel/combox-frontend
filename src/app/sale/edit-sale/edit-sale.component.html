@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="card col-md-6 offset-3 mt-2">
+        <div class="card-header">Modifier Bon de commande (Vente)</div>
+        <div class="card-body" *ngIf="sale">
+            <form [formGroup]="editFormGroup" (ngSubmit)="handleSave()">
+                <div class="mb-3">
+                    <label for="product" class="form-label">Produit</label>
+                    <select id="product" formControlName="productSale" class="form-select">
+                        <option *ngFor="let product of products" [value]="product.id">{{ product.name }}</option>
+                    </select>
+                    <div *ngIf="editFormGroup.get('productSale')?.invalid && editFormGroup.get('productSale')?.touched"
+                        class="text-danger">
+                        Veuillez choisir un produit
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="quantity" class="form-label">Quantité</label>
+                    <input id="quantity" type="number" formControlName="quantity" class="form-control" />
+                    <div *ngIf="editFormGroup.get('quantity')?.invalid && editFormGroup.get('quantity')?.touched"
+                        class="text-danger">
+                        Veuillez entrez une quantité valide
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="amount" class="form-label">Amount</label>
+                    <input id="amount" type="text" class="form-control" [value]="formatAmount(calculatedAmount)" disabled />
+                  </div>
+                <button class="btn btn-primary me-md-2" [disabled]="!editFormGroup.valid">Enregistrer</button>
+                <button class="btn btn-secondary" routerLink="/sales">Annuler</button>
+            </form>
+        </div>
+    </div>
+</div>
